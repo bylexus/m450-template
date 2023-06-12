@@ -1,0 +1,38 @@
+version: '3.2'
+
+services:
+    web:
+        build:
+            context: ./docker/web
+        ports:
+            - '${WEB_PORT:-8020}:80'
+        volumes:
+            - ./webroot:/var/www/html
+        environment:
+            - DB_NAME=${DB_NAME:-m450}
+            - DB_HOST=${DB_HOST:-db}
+            - DB_PORT=${DB_PORT:-5432}
+            - DB_USER=${DB_USER:-m450}
+            - DB_PASSWORD=${DB_PASSWORD:-m450}
+            - OPENWEATHER_KEY=${OPENWEATHER_KEY}
+    db:
+        build: ./docker/db
+        ports:
+            - "${DB_PORT:-5432}:5432"
+        environment:
+            - POSTGRES_DB=${DB_NAME:-m450}
+            - POSTGRES_USER=${DB_USER:-m450}
+            - POSTGRES_PASSWORD=${DB_PASSWORD:-m450}
+        volumes:
+            - ./data/db:/var/lib/postgresql/data
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: m450@bztf.ch
+            PGADMIN_DEFAULT_PASSWORD: m450
+        ports:
+            - '${PGADMIN_PORT:-9999}:80'
+        volumes:
+            - ./data/pgadmin:/var/lib/pgadmin
+
+
