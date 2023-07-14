@@ -9,6 +9,7 @@ services:
         volumes:
             - ./webroot:/var/www/html
         environment:
+            - XDEBUG_MODE=trace,debug,coverage
             - DB_NAME=${DB_NAME:-m450}
             - DB_HOST=${DB_HOST:-db}
             - DB_PORT=${DB_PORT:-5432}
