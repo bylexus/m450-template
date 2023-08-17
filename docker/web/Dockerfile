@@ -31,8 +31,4 @@ ENV LC_ALL de_CH.UTF-8
 RUN cp /usr/share/zoneinfo/Europe/Zurich /etc/localtime
 WORKDIR /var/www/html
 
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
-CMD ["apache2-foreground"]
+CMD composer install && apache2-foreground
