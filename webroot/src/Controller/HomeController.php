@@ -87,6 +87,7 @@ class HomeController {
         $template = $twig->load('home/weatherdata.tpl.html');
 
         $timestamp = strtotime("{$date} {$time}");
+        $dateStr = date('Y-m-d H:i', $timestamp);
         $weatherdata = null;
         $airdata = null;
 
@@ -205,14 +206,15 @@ class HomeController {
                 $query = "
                     SELECT * FROM weather WHERE
                     zip = :zip
-                    AND ABS(:ts - extract(epoch from ts)) <= 1800
+                    AND datetime(ts, 'localtime') >= datetime(:ts, '-900 second', 'localtime')
+                    AND datetime(ts, 'localtime') <= datetime(:ts, '+900 second', 'localtime')
                     ORDER BY ts DESC
                     LIMIT 1
                 ";
                 $stm = $dbConn->prepare($query);
                 $stm->execute([
                     'zip' => $plz,
-                    'ts' => $timestamp
+                    'ts' => $dateStr
                 ]);
                 $weatherdata = $stm->fetchAll(PDO::FETCH_ASSOC);
                 // 1. Record aus Result extrahieren:
@@ -224,14 +226,15 @@ class HomeController {
                 $query = "
                     SELECT * FROM air_pollution WHERE
                     zip = :zip
-                    AND ABS(:ts - extract(epoch from ts)) <= 1800
+                    AND datetime(ts, 'localtime') >= datetime(:ts, '-900 second', 'localtime')
+                    AND datetime(ts, 'localtime') <= datetime(:ts, '+900 second', 'localtime')
                     ORDER BY ts DESC
                     LIMIT 1
                 ";
                 $stm = $dbConn->prepare($query);
                 $stm->execute([
                     'zip' => $plz,
-                    'ts' => $timestamp
+                    'ts' => $dateStr
                 ]);
                 $airdata = $stm->fetchAll(PDO::FETCH_ASSOC);
                 // 1. Record aus Result extrahieren:

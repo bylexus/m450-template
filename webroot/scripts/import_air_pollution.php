@@ -98,7 +98,7 @@ use Symfony\Component\Console\SingleCommandApplication;
 			(ts, country, zip, city, longitude, latitude, air_quality_index,
 			co, no, no2, o3, so2, pm2_5, pm10, nh3)
 			VALUES (
-				:ts, :country, :zip, :city, :longitude, :latitude, :air_quality_index,
+				datetime(:ts, 'localtime'), :country, :zip, :city, :longitude, :latitude, :air_quality_index,
 				:co, :no, :no2, :o3, :so2, :pm2_5, :pm10, :nh3
 			)
 		");

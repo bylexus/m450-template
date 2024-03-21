@@ -85,7 +85,7 @@ use Symfony\Component\Console\SingleCommandApplication;
 			(ts, country, zip, city, longitude, latitude, description, icon, temp, temp_feels_like, temp_min, temp_max,
 			pressure, humidity, wind_speed, wind_degree, wind_gust, clouds_percentage, sunrise, sunset)
 			VALUES (
-				:ts, :country, :zip, :city, :longitude, :latitude, :description, :icon,
+				datetime(:ts, 'localtime'), :country, :zip, :city, :longitude, :latitude, :description, :icon,
 				:temp, :temp_feels_like, :temp_min, :temp_max,
 				:pressure, :humidity, :wind_speed, :wind_degree, :wind_gust, :clouds_percentage, :sunrise, :sunset
 			)

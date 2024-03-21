@@ -22,7 +22,7 @@ Abgegeben wird eine kleine Web-Applikation auf Basis [Slim PHP Framework](https:
 
 * die Applikation stellt Wetterdaten zur Verfügung, welche sie von einer externen API (https://openweathermap.org/) holt
 * Das Abholen wird mittels eines Komandozeilen-Clients gemacht, welcher periodisch oder manuell ausgeführt wird.
-* Die Daten werden in einer Datenbank (PostgreSQL) gespeichert
+* Die Daten werden in einer lokalen SQLite-Datenbank gespeichert
 * Das Web-UI stellt zu Beginn nur Einzeldaten für einen Tag und einen Ort (PLZ) zur Verfügung
 
 **Die Applikation ist absichtlich unschön und an einigen Stellen buggy implementiert**: Ziel des Moduls M450 ist das Erlernen
@@ -32,10 +32,8 @@ von Software-Testpraktiken: Dazu gehört auch Debugging, Refactoring.
 
 Die Applikation wird als Docker-Compose-Projekt abgegeben: Es werden folgende Container hochgefahren:
 
-* `db`: Ein PostgreSQL-Docker-Container mit der Ausgangs-Datenbank, hört auf Port `8020`
 * `web`: Ein Apache / PHP-Docker-Container für das Ausliefern der Web-Applikation und des
-   Kommandozeilen-Clients, hört auf Port `5432`
-* `pgadmin`: der PostgreSQL-Client PGAdmin 4 als Docker-Web-Applikation, hört auf Port `9999`
+   Kommandozeilen-Clients, hört auf Port `8020`
 
 Die **Web-Applikation** ist eine kleine [Slim PHP](https://www.slimframework.com/)-Applikation, welches in einer ersten
 Version Wetterdaten zu einem ausgewählten Zeitpunkt anzeigt.
@@ -53,9 +51,9 @@ OPENWEATHER_KEY=xxxxxxxxxxxxxxxxxxx
 
 Die Datenbankparameter sind bewusst hardcodiert als Umgebungsvariablen in `docker-compose.yml` gesetzt:
 
-- DB: **m450**
-- User: **m450**
-- PW: **m450**
+- `SQLITE_DB_PATH=/data/weather.db`
+
+Diese Umgebungsvariable definiert den Pfad (innerhalb des Docker-Containers) zur SQLite-Datenbank.
 
 Danach wird das Projekt mittels `docker compose` gestartet:
 

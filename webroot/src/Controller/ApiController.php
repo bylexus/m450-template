@@ -19,30 +19,33 @@ class ApiController {
         $dbConn = DB::conn();
 
         $timestamp = strtotime("{$date} {$time}");
+        $dateStr = date('Y-m-d H:i', $timestamp);
 
         // Wir suchen den einen Eintrag der gegebenen PLZ, welcher am nächsten zum gegebenen
         // Datum/Zeitstempel ist, aber nur innerhalb einer 30min-Distanz:
         $query = "
             SELECT * FROM weather WHERE
             zip = :zip
-            AND ABS(:ts - extract(epoch from ts)) <= 1800
+            AND datetime(ts, 'localtime') >= datetime(:ts, '-900 second', 'localtime')
+            AND datetime(ts, 'localtime') <= datetime(:ts, '+900 second', 'localtime')
             ORDER BY ts DESC
             LIMIT 1
         ";
         $stm = $dbConn->prepare($query);
-        $stm->execute(['zip' => $plz, 'ts' => $timestamp]);
+        $stm->execute(['zip' => $plz, 'ts' => $dateStr]);
         $weatherdata = $stm->fetchAll(PDO::FETCH_ASSOC);
 
         // ... dasselbe suchen wir für die Luft-Daten:
         $query = "
             SELECT * FROM air_pollution WHERE
             zip = :zip
-            AND ABS(:ts - extract(epoch from ts)) <= 1800
+            AND datetime(ts, 'localtime') >= datetime(:ts, '-900 second', 'localtime')
+            AND datetime(ts, 'localtime') <= datetime(:ts, '+900 second', 'localtime')
             ORDER BY ts DESC
             LIMIT 1
         ";
         $stm = $dbConn->prepare($query);
-        $stm->execute(['zip' => $plz, 'ts' => $timestamp]);
+        $stm->execute(['zip' => $plz, 'ts' => $dateStr]);
         $airdata = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 

@@ -1,16 +1,16 @@
-FROM php:8.2-apache-bullseye
+FROM php:8.3-apache-bookworm
 
 EXPOSE 8020
 
 RUN apt-get update && \
 	apt-get dist-upgrade -y && \
 	apt-get install --no-install-recommends -y \ 
-		libpq-dev \
-		libpq5 \
+	 	libsqlite3-dev \
+		sqlite3 \
 		unzip \
 		locales
-RUN	docker-php-ext-install -j$(nproc) pdo_pgsql opcache
-RUN pecl install xdebug-3.2.0 \
+RUN	docker-php-ext-install -j$(nproc) opcache
+RUN pecl install xdebug \
 	&& docker-php-ext-enable xdebug
 
 COPY php.ini /usr/local/etc/php/php.ini
