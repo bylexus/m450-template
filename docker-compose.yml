@@ -13,9 +13,5 @@ services:
             - XDEBUG_MODE=trace,debug,coverage
             - SQLITE_DB_PATH=/data/weather.db
             - DB_NAME=${DB_NAME:-m450}
-            - DB_HOST=${DB_HOST:-db}
-            - DB_PORT=${DB_PORT:-5432}
-            - DB_USER=${DB_USER:-m450}
-            - DB_PASSWORD=${DB_PASSWORD:-m450}
             - OPENWEATHER_KEY=${OPENWEATHER_KEY}
 
