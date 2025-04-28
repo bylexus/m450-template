@@ -1,4 +1,6 @@
+# This is the development version of the m450 example weather app
 FROM php:8.3-apache-bookworm
+LABEL author="Alexander Schenkel <alexander.schenkel@bztf.ch>"
 
 EXPOSE 8020
 
