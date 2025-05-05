@@ -1,5 +1,5 @@
 # This is the development version of the m450 example weather app
-FROM php:8.3-apache-bookworm
+FROM php:8.4-apache-bookworm
 LABEL author="Alexander Schenkel <alexander.schenkel@bztf.ch>"
 
 EXPOSE 8020
@@ -27,9 +27,9 @@ RUN a2enmod rewrite actions
 
 # Set the locale
 RUN echo "de_CH.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
-ENV LANG de_CH.UTF-8
-ENV LANGUAGE de_CH:en
-ENV LC_ALL de_CH.UTF-8
+ENV LANG=de_CH.UTF-8
+ENV LANGUAGE=de_CH:en
+ENV LC_ALL=de_CH.UTF-8
 RUN cp /usr/share/zoneinfo/Europe/Zurich /etc/localtime
 WORKDIR /var/www/html
 
