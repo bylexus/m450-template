@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>M450 - Use-Cases f&uuml;r Wetter-Applikation</title>
-        <style>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>M450 - Use-Cases f&uuml;r Wetter-Applikation</title>
+            <style>
 /* From extension vscode.github */
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
@@ -11,12 +11,14 @@
  *--------------------------------------------------------------------------------------------*/
 
 .vscode-dark img[src$=\#gh-light-mode-only],
-.vscode-light img[src$=\#gh-dark-mode-only] {
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
 	display: none;
 }
 
 </style>
-        
+            
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
 <style>
@@ -37,10 +39,106 @@
     pointer-events: none;
 }
 </style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
         
-    </head>
-    <body class="vscode-body vscode-light">
-        <h1 id="m450-use-cases-für-wetter-applikation">M450 - Use-Cases für Wetter-Applikation</h1>
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="m450-use-cases-für-wetter-applikation">M450 - Use-Cases für Wetter-Applikation</h1>
 <p>Im Folgenden sind die Anforderungen an die gewünschte Wetter-Applikation
 in Form von Use-Cases / Use-Case-Beschreibungen notiert.</p>
 <ul>
@@ -70,10 +168,22 @@ in Form von Use-Cases / Use-Case-Beschreibungen notiert.</p>
 <li><a href="#erweiterungen-3">Erweiterungen</a></li>
 </ul>
 </li>
+<li><a href="#05-tabellarische-tagesdaten-zwischen-2-daten-abrufen">05 - Tabellarische Tagesdaten zwischen 2 Daten abrufen</a>
+<ul>
+<li><a href="#essentielle-schritte-4">Essentielle Schritte</a></li>
+<li><a href="#erweiterungen-4">Erweiterungen</a></li>
+</ul>
+</li>
+<li><a href="#06-verlauf-temperatur-zwischen-2-daten-grafisch-darstellen">06 - Verlauf Temperatur zwischen 2 Daten grafisch darstellen</a>
+<ul>
+<li><a href="#essentielle-schritte-5">Essentielle Schritte</a></li>
+<li><a href="#erweiterungen-5">Erweiterungen</a></li>
 </ul>
 </li>
 </ul>
-<img alt="Use-Cases" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgaGVpZ2h0PSI1NDNweCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSIgc3R5bGU9IndpZHRoOjQyMXB4O2hlaWdodDo1NDNweDtiYWNrZ3JvdW5kOiNGRkZGRkY7IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA0MjEgNTQzIiB3aWR0aD0iNDIxcHgiIHpvb21BbmRQYW49Im1hZ25pZnkiPjxkZWZzLz48Zz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjI1IiB4PSI5MSIgeT0iMjMuNTM1MiI+TTQ1MCAtIFVzZS1DYXNlcyBXZXR0ZXItQXBwPC90ZXh0PjwhLS1jbHVzdGVyIFdldHRlci1BcHAtLT48ZyBpZD0iY2x1c3Rlcl9XZXR0ZXItQXBwIj48cmVjdCBmaWxsPSJub25lIiBoZWlnaHQ9IjQ5MyIgcng9IjIuNSIgcnk9IjIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjA7IiB3aWR0aD0iMzM0IiB4PSI4MSIgeT0iNDQuNDg4MyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI4NCIgeD0iMjA2IiB5PSI2MC4wMjM0Ij5XZXR0ZXItQXBwPC90ZXh0PjwvZz48ZyBpZD0iZWxlbV9pbXBvcnRfd2VhdGhlciI+PGVsbGlwc2UgY3g9IjI0Ny44MTM1IiBjeT0iNDA0LjI1MSIgZmlsbD0iI0YxRjFGMSIgcng9IjEyNi44MTM1IiByeT0iMjcuNzYyNyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTcyIiB4PSIxNTguODEzNSIgeT0iNDAwLjAyNDQiPjAxIC0gV2V0dGVyZGF0ZW4gdm9uIEFQSTwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI4MSIgeD0iMjA0LjMxMzUiIHk9IjQxNi41MTI3Ij5pbXBvcnRpZXJlbjwvdGV4dD48L2c+PGcgaWQ9ImVsZW1faW1wb3J0X2FpciI+PGVsbGlwc2UgY3g9IjI0Ny44ODEzIiBjeT0iNDk0LjI2NDUiIGZpbGw9IiNGMUYxRjEiIHJ4PSIxMjEuODgxMyIgcnk9IjI2Ljc3NjMiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjE1OCIgeD0iMTY1Ljg4MTMiIHk9IjQ5MC4wMzgiPjAyIC0gTHVmdHF1YWxpdMOkdHNkYXRlbjwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxMzYiIHg9IjE3Ni44ODEzIiB5PSI1MDYuNTI2MyI+dm9uIEFQSSBpbXBvcnRpZXJlbjwvdGV4dD48L2c+PGcgaWQ9ImVsZW1fZGF0YV9wb2ludCI+PGVsbGlwc2UgY3g9IjI0Ny44NjE5IiBjeT0iMzA4LjU2MDciIGZpbGw9IiNGMUYxRjEiIHJ4PSIxNTAuODYxOSIgcnk9IjMyLjU3MjQiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjI3MiIgeD0iMTExLjg2MTkiIHk9IjMxMS44NTE3Ij4wMyAtIFdldHRlciBhbSBaZWl0cHVua3QvT3J0IFggYWJydWZlbjwvdGV4dD48L2c+PGcgaWQ9ImVsZW1fZGF0YV9hdmciPjxlbGxpcHNlIGN4PSIyNDguMTU3OCIgY3k9IjExMi41MTk4IiBmaWxsPSIjRjFGMUYxIiByeD0iMTUwLjY1NzgiIHJ5PSIzMi41MzE2IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIyMzMiIHg9IjEzMS42NTc4IiB5PSIxMDcuNTY2NyI+MDQgLSBEdXJjaHNjaG5pdHRzd2VydGUgendpc2NoZW48L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTExIiB4PSIxOTIuNjU3OCIgeT0iMTI0LjA1NSI+MiBEYXRlbiBhYnJ1ZmVuPC90ZXh0PjwvZz48ZyBpZD0iZWxlbV9kYXRhX3RhYmxlIj48ZWxsaXBzZSBjeD0iMjQ3Ljg2NTMiIGN5PSIyMTAuNTYxMyIgZmlsbD0iI0YxRjFGMSIgcng9IjE0MC44NjUzIiByeT0iMzAuNTczMSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjA5IiB4PSIxNDMuMzY1MyIgeT0iMjA1LjYwODIiPjA1IC0gVGFiZWxsYXJpc2NoZSBUYWdlc2RhdGVuPC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjE3OCIgeD0iMTU4Ljg2NTMiIHk9IjIyMi4wOTY1Ij56d2lzY2hlbiAyIERhdGVuIGFicnVmZW48L3RleHQ+PC9nPjwhLS1lbnRpdHkgVXNlci0tPjxnIGlkPSJlbGVtX1VzZXIiPjxlbGxpcHNlIGN4PSIyMS41IiBjeT0iMTgwLjk4ODMiIGZpbGw9IiNGMUYxRjEiIHJ4PSI4IiByeT0iOCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHBhdGggZD0iTTIxLjUsMTg4Ljk4ODMgTDIxLjUsMjE1Ljk4ODMgTTguNSwxOTYuOTg4MyBMMzQuNSwxOTYuOTg4MyBNMjEuNSwyMTUuOTg4MyBMOC41LDIzMC45ODgzIE0yMS41LDIxNS45ODgzIEwzNC41LDIzMC45ODgzICIgZmlsbD0ibm9uZSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzEiIHg9IjYiIHk9IjI0Ni4wMjM0Ij5Vc2VyPC90ZXh0PjwvZz48IS0tZW50aXR5IFplaXQtLT48ZyBpZD0iZWxlbV9aZWl0Ij48ZWxsaXBzZSBjeD0iMjEuNSIgY3k9IjQxOS45ODgzIiBmaWxsPSIjRjFGMUYxIiByeD0iOCIgcnk9IjgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjxwYXRoIGQ9Ik0yMS41LDQyNy45ODgzIEwyMS41LDQ1NC45ODgzIE04LjUsNDM1Ljk4ODMgTDM0LjUsNDM1Ljk4ODMgTTIxLjUsNDU0Ljk4ODMgTDguNSw0NjkuOTg4MyBNMjEuNSw0NTQuOTg4MyBMMzQuNSw0NjkuOTg4MyAiIGZpbGw9Im5vbmUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjI1IiB4PSI5IiB5PSI0ODUuMDIzNCI+WmVpdDwvdGV4dD48L2c+PCEtLWxpbmsgWmVpdCB0byBpbXBvcnRfd2VhdGhlci0tPjxnIGlkPSJsaW5rX1plaXRfaW1wb3J0X3dlYXRoZXIiPjxwYXRoIGQ9Ik0zNS4yMSw0NDYuOTM4MyBDNTcuOTQsNDQyLjM4ODMgMTA3LjQxLDQzMi40NjgzIDE1Mi44Myw0MjMuMzY4MyAiIGZpbGw9Im5vbmUiIGlkPSJaZWl0LWltcG9ydF93ZWF0aGVyIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuMDsiLz48L2c+PCEtLWxpbmsgWmVpdCB0byBpbXBvcnRfYWlyLS0+PGcgaWQ9ImxpbmtfWmVpdF9pbXBvcnRfYWlyIj48cGF0aCBkPSJNMzUuMjEsNDUyLjAzODMgQzU4LjU0LDQ1Ni43MDgzIDExMC4wNSw0NjcuMDM4MyAxNTYuNDMsNDc2LjMzODMgIiBmaWxsPSJub25lIiBpZD0iWmVpdC1pbXBvcnRfYWlyIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuMDsiLz48L2c+PCEtLWxpbmsgVXNlciB0byBkYXRhX3BvaW50LS0+PGcgaWQ9ImxpbmtfVXNlcl9kYXRhX3BvaW50Ij48cGF0aCBkPSJNMzcuMjQsMjI4LjI0ODMgQzQ2LjU0LDIzOC40MTgzIDU5LjM1LDI1MC42NzgzIDczLDI1OC40ODgzIEM5Mi45MSwyNjkuODg4MyAxMTUuNjIsMjc4Ljg0ODMgMTM3LjksMjg1LjgzODMgIiBmaWxsPSJub25lIiBpZD0iVXNlci1kYXRhX3BvaW50IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuMDsiLz48L2c+PCEtLWxpbmsgVXNlciB0byBkYXRhX2F2Zy0tPjxnIGlkPSJsaW5rX1VzZXJfZGF0YV9hdmciPjxwYXRoIGQ9Ik0zNy4yNCwxOTIuNzI4MyBDNDYuNTQsMTgyLjU1ODMgNTkuMzUsMTcwLjI5ODMgNzMsMTYyLjQ4ODMgQzkzLjA1LDE1MS4wMDgzIDExNS45MywxNDEuOTk4MyAxMzguMzYsMTM0Ljk4ODMgIiBmaWxsPSJub25lIiBpZD0iVXNlci1kYXRhX2F2ZyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjA7Ii8+PC9nPjwhLS1saW5rIFVzZXIgdG8gZGF0YV90YWJsZS0tPjxnIGlkPSJsaW5rX1VzZXJfZGF0YV90YWJsZSI+PHBhdGggZD0iTTM3LjIzLDIxMC40ODgzIEM1Mi41OSwyMTAuNDg4MyA3OC4zNiwyMTAuNDg4MyAxMDYuNjYsMjEwLjQ4ODMgIiBmaWxsPSJub25lIiBpZD0iVXNlci1kYXRhX3RhYmxlIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuMDsiLz48L2c+PCEtLVNSQz1bVFA3MUppQ20zOFJGdjJjaXQybDZzMXZXT1hTYTQxbjA4M0hmeVpndFpTWkl1aFloMUU5alUxRFVaQUhUS1JqZkhfX25femNfOHFPaVdSd1ZwSVVHbUJFZHYwT3pVTldYNFU5YUtMTFFNU2U0ZjBHc1VJNm1ES29mY0Q4ZlhRY0szM2d1TUZWNTZuZEhJaUtVVDdiYTNyM21mSXZnSnNhTzBOZm81SVBzWnJpS1NoMGw3SW1VUnJWRXhBZ0luSDJKcXUwVWtkaFQ0NGYxRjRIQzAtQWtwa0laSGNsYXpxVHlZcmd2MG1sRWVEMkNDRFZfY20zazg0UWVRbFNrYm15aXkwZ3V1SmV4LTBDVXJyTGZkMHB6aS0xVnJmbU1GWXNTNFY0RGlIMXlEWU84U1BxZkJEazg5b1pTdnFGR0Y4MlVTNEZNOGhWVUtFTktYLWZ2UzFPZGtCNmFsZk1BNkkxOVphenQ5Q1NwbkQtQnFZM1BJOGVSWmVIa25YeTBdLS0+PC9nPjwvc3ZnPg==" width="400">
+</li>
+</ul>
+<img alt="Use-Cases" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgZGF0YS1kaWFncmFtLXR5cGU9IkRFU0NSSVBUSU9OIiBoZWlnaHQ9IjY0NHB4IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBzdHlsZT0id2lkdGg6NDM0cHg7aGVpZ2h0OjY0NHB4O2JhY2tncm91bmQ6I0ZGRkZGRjsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDQzNCA2NDQiIHdpZHRoPSI0MzRweCIgem9vbUFuZFBhbj0ibWFnbmlmeSI+PHRpdGxlPk00NTAgLSBVc2UtQ2FzZXMgV2V0dGVyLUFwcDwvdGl0bGU+PGRlZnMvPjxnPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIyMjUuMzgwOSIgeD0iOTcuMzg0NiIgeT0iMjMuNTM1MiI+TTQ1MCAtIFVzZS1DYXNlcyBXZXR0ZXItQXBwPC90ZXh0PjwhLS1jbHVzdGVyIFdldHRlci1BcHAtLT48ZyBjbGFzcz0iY2x1c3RlciIgZGF0YS1lbnRpdHk9IldldHRlci1BcHAiIGRhdGEtc291cmNlLWxpbmU9IjciIGRhdGEtdWlkPSJlbnQwMDA0IiBpZD0iY2x1c3Rlcl9XZXR0ZXItQXBwIj48cmVjdCBmaWxsPSJub25lIiBoZWlnaHQ9IjU5NCIgcng9IjIuNSIgcnk9IjIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgd2lkdGg9IjM0Ny43OCIgeD0iODAuMzciIHk9IjQ0LjQ4ODMiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iODQuNTc0MiIgeD0iMjExLjk3MjkiIHk9IjYwLjAyMzQiPldldHRlci1BcHA8L3RleHQ+PC9nPjxnIGNsYXNzPSJlbnRpdHkiIGRhdGEtZW50aXR5PSJpbXBvcnRfd2VhdGhlciIgZGF0YS1zb3VyY2UtbGluZT0iOCIgZGF0YS11aWQ9ImVudDAwMDUiIGlkPSJlbnRpdHlfaW1wb3J0X3dlYXRoZXIiPjxlbGxpcHNlIGN4PSIyNTQuMjU2MSIgY3k9IjU5NC40ODc1IiBmaWxsPSIjRjFGMUYxIiByeD0iMTI2LjY0NjEiIHJ5PSIyNy43MjkyIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxNzEuNTM0MiIgeD0iMTY1LjQ4OSIgeT0iNTkwLjI2MDkiPjAxIC0gV2V0dGVyZGF0ZW4gdm9uIEFQSTwvdGV4dD48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI3OS41NTY2IiB4PSIyMTEuNDc3OCIgeT0iNjA2Ljc0OTIiPmltcG9ydGllcmVuPC90ZXh0PjwvZz48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLWVudGl0eT0iaW1wb3J0X2FpciIgZGF0YS1zb3VyY2UtbGluZT0iOSIgZGF0YS11aWQ9ImVudDAwMDYiIGlkPSJlbnRpdHlfaW1wb3J0X2FpciI+PGVsbGlwc2UgY3g9IjI1NC4yNTgyIiBjeT0iNTA0LjQ4MzkiIGZpbGw9IiNGMUYxRjEiIHJ4PSIxMjEuOTI4MiIgcnk9IjI2Ljc4NTYiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjE1OC4xMzU3IiB4PSIxNzIuMTkwMyIgeT0iNTAwLjI1NzQiPjAyIC0gTHVmdHF1YWxpdCYjMjI4O3RzZGF0ZW48L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTM0LjM4MDkiIHg9IjE4NC4wNjc3IiB5PSI1MTYuNzQ1NiI+dm9uIEFQSSBpbXBvcnRpZXJlbjwvdGV4dD48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1lbnRpdHk9ImRhdGFfcG9pbnQiIGRhdGEtc291cmNlLWxpbmU9IjEwIiBkYXRhLXVpZD0iZW50MDAwNyIgaWQ9ImVudGl0eV9kYXRhX3BvaW50Ij48ZWxsaXBzZSBjeD0iMjU0LjI1OCIgY3k9IjQxMC40ODM5IiBmaWxsPSIjRjFGMUYxIiByeD0iMTUxLjE3OCIgcnk9IjMyLjYzNTYiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjI3Mi42NTgyIiB4PSIxMTcuOTI4OSIgeT0iNDEzLjc3NDkiPjAzIC0gV2V0dGVyIGFtIFplaXRwdW5rdC9PcnQgWCBhYnJ1ZmVuPC90ZXh0PjwvZz48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLWVudGl0eT0iZGF0YV9hdmciIGRhdGEtc291cmNlLWxpbmU9IjExIiBkYXRhLXVpZD0iZW50MDAwOCIgaWQ9ImVudGl0eV9kYXRhX2F2ZyI+PGVsbGlwc2UgY3g9IjI1NC4yNjM3IiBjeT0iMzEwLjQ5MSIgZmlsbD0iI0YxRjFGMSIgcng9IjE1MC42MTM3IiByeT0iMzIuNTIyNyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjMyLjg5MzYiIHg9IjEzNy44MTY5IiB5PSIzMDUuNTM3OSI+MDQgLSBEdXJjaHNjaG5pdHRzd2VydGUgendpc2NoZW48L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTEwLjI1IiB4PSIxOTkuMTM4NyIgeT0iMzIyLjAyNjIiPjIgRGF0ZW4gYWJydWZlbjwvdGV4dD48L2c+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1lbnRpdHk9ImRhdGFfdGFibGUiIGRhdGEtc291cmNlLWxpbmU9IjEyIiBkYXRhLXVpZD0iZW50MDAwOSIgaWQ9ImVudGl0eV9kYXRhX3RhYmxlIj48ZWxsaXBzZSBjeD0iMjU0LjI1NjYiIGN5PSIyMTIuNDg3NiIgZmlsbD0iI0YxRjFGMSIgcng9IjE0MC4xNDY2IiByeT0iMzAuNDI5MyIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjA3LjIwNDEiIHg9IjE1MC42NTQ2IiB5PSIyMDcuNTM0NSI+MDUgLSBUYWJlbGxhcmlzY2hlIFRhZ2VzZGF0ZW48L3RleHQ+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTc3LjAyMzQiIHg9IjE2NS43NDQ5IiB5PSIyMjQuMDIyOCI+endpc2NoZW4gMiBEYXRlbiBhYnJ1ZmVuPC90ZXh0PjwvZz48ZyBjbGFzcz0iZW50aXR5IiBkYXRhLWVudGl0eT0iZGF0YV9ncmFwaCIgZGF0YS1zb3VyY2UtbGluZT0iMTMiIGRhdGEtdWlkPSJlbnQwMDEwIiBpZD0iZW50aXR5X2RhdGFfZ3JhcGgiPjxlbGxpcHNlIGN4PSIyNTQuMjY0IiBjeT0iMTEzLjQ4NzEiIGZpbGw9IiNGMUYxRjEiIHJ4PSIxNTcuODk0IiByeT0iMzMuOTc4OCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTY2LjgzNzkiIHg9IjE3MC44NDUiIHk9IjEwOC41MzQiPjA2IC0gVmVybGF1ZiBUZW1wZXJhdHVyPC90ZXh0Pjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjI1MC4yNjM3IiB4PSIxMjkuMTMyMSIgeT0iMTI1LjAyMjIiPnp3aXNjaGVuIDIgRGF0ZW4gZ3JhZmlzY2ggZGFyc3RlbGxlbjwvdGV4dD48L2c+PCEtLWVudGl0eSBVc2VyLS0+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1lbnRpdHk9IlVzZXIiIGRhdGEtc291cmNlLWxpbmU9IjQiIGRhdGEtdWlkPSJlbnQwMDAyIiBpZD0iZW50aXR5X1VzZXIiPjxlbGxpcHNlIGN4PSIyMS4xODI2IiBjeT0iMzU0Ljc0ODMiIGZpbGw9IiNGMUYxRjEiIHJ4PSI4IiByeT0iOCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7Ii8+PHBhdGggZD0iTTIxLjE4MjYsMzYyLjc0ODMgTDIxLjE4MjYsMzg5Ljc0ODMgTTguMTgyNiwzNzAuNzQ4MyBMMzQuMTgyNiwzNzAuNzQ4MyBNMjEuMTgyNiwzODkuNzQ4MyBMOC4xODI2LDQwNC43NDgzIE0yMS4xODI2LDM4OS43NDgzIEwzNC4xODI2LDQwNC43NDgzIiBmaWxsPSJub25lIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIzMC4zNjUyIiB4PSI2IiB5PSI0MTkuNzgzNCI+VXNlcjwvdGV4dD48L2c+PCEtLWVudGl0eSBaZWl0LS0+PGcgY2xhc3M9ImVudGl0eSIgZGF0YS1lbnRpdHk9IlplaXQiIGRhdGEtc291cmNlLWxpbmU9IjUiIGRhdGEtdWlkPSJlbnQwMDAzIiBpZD0iZW50aXR5X1plaXQiPjxlbGxpcHNlIGN4PSIyMS4xOCIgY3k9IjUwMS43NDgzIiBmaWxsPSIjRjFGMUYxIiByeD0iOCIgcnk9IjgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIvPjxwYXRoIGQ9Ik0yMS4xOCw1MDkuNzQ4MyBMMjEuMTgsNTM2Ljc0ODMgTTguMTgsNTE3Ljc0ODMgTDM0LjE4LDUxNy43NDgzIE0yMS4xOCw1MzYuNzQ4MyBMOC4xOCw1NTEuNzQ4MyBNMjEuMTgsNTM2Ljc0ODMgTDM0LjE4LDU1MS43NDgzIiBmaWxsPSJub25lIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTsiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIyNS41NDU5IiB4PSI4LjQwNzEiIHk9IjU2Ni43ODM0Ij5aZWl0PC90ZXh0PjwvZz48IS0tbGluayBaZWl0IHRvIGltcG9ydF93ZWF0aGVyLS0+PGcgY2xhc3M9ImxpbmsiIGRhdGEtZW50aXR5LTE9IlplaXQiIGRhdGEtZW50aXR5LTI9ImltcG9ydF93ZWF0aGVyIiBkYXRhLXNvdXJjZS1saW5lPSIxNiIgZGF0YS11aWQ9ImxuazExIiBpZD0ibGlua19aZWl0X2ltcG9ydF93ZWF0aGVyIj48cGF0aCBkPSJNMzQuODgsNTM2LjA5ODMgQzQ0Ljk4LDUzOS42NzgzIDU5LjQ5LDU0NC42NzgzIDcyLjM3LDU0OC40ODgzIEMxMDMuMTMsNTU3LjU5ODMgMTM3LjE1LDU2Ni41MzgzIDE2Ny4zMSw1NzQuMDc4MyIgZmlsbD0ibm9uZSIgaWQ9IlplaXQtaW1wb3J0X3dlYXRoZXIiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48L2c+PCEtLWxpbmsgWmVpdCB0byBpbXBvcnRfYWlyLS0+PGcgY2xhc3M9ImxpbmsiIGRhdGEtZW50aXR5LTE9IlplaXQiIGRhdGEtZW50aXR5LTI9ImltcG9ydF9haXIiIGRhdGEtc291cmNlLWxpbmU9IjE3IiBkYXRhLXVpZD0ibG5rMTIiIGlkPSJsaW5rX1plaXRfaW1wb3J0X2FpciI+PHBhdGggZD0iTTM0Ljk0LDUyOS45OTgzIEM1Ni40Niw1MjcuNDc4MyAxMDEuOTYsNTIyLjE2ODMgMTQ1Ljg4LDUxNy4wMzgzIiBmaWxsPSJub25lIiBpZD0iWmVpdC1pbXBvcnRfYWlyIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PC9nPjwhLS1saW5rIFVzZXIgdG8gaW1wb3J0X3dlYXRoZXItLT48ZyBjbGFzcz0ibGluayIgZGF0YS1lbnRpdHktMT0iVXNlciIgZGF0YS1lbnRpdHktMj0iaW1wb3J0X3dlYXRoZXIiIGRhdGEtc291cmNlLWxpbmU9IjE4IiBkYXRhLXVpZD0ibG5rMTMiIGlkPSJsaW5rX1VzZXJfaW1wb3J0X3dlYXRoZXIiPjxwYXRoIGQ9Ik0yOS40OCw0MjMuMTg4MyBDMzguMzEsNDY1Ljk5ODMgNTQuMjYsNTMxLjIyODMgNzIuMzcsNTQ4LjQ4ODMgQzkwLjMxLDU2NS41ODgzIDExMy42OCw1NzYuNTc4MyAxMzcuNjQsNTgzLjU4ODMiIGZpbGw9Im5vbmUiIGlkPSJVc2VyLWltcG9ydF93ZWF0aGVyIiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PC9nPjwhLS1saW5rIFVzZXIgdG8gaW1wb3J0X2Fpci0tPjxnIGNsYXNzPSJsaW5rIiBkYXRhLWVudGl0eS0xPSJVc2VyIiBkYXRhLWVudGl0eS0yPSJpbXBvcnRfYWlyIiBkYXRhLXNvdXJjZS1saW5lPSIxOSIgZGF0YS11aWQ9ImxuazE0IiBpZD0ibGlua19Vc2VyX2ltcG9ydF9haXIiPjxwYXRoIGQ9Ik0zNi42OSw0MTcuMTg4MyBDNDUuMDUsNDMyLjQ3ODMgNTYuOTcsNDQ5LjY2ODMgNzIuMzcsNDYwLjQ4ODMgQzkzLjkxLDQ3NS42MzgzIDEyMC4wNyw0ODUuNjA4MyAxNDUuNzMsNDkyLjE0ODMiIGZpbGw9Im5vbmUiIGlkPSJVc2VyLWltcG9ydF9haXIiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48L2c+PCEtLWxpbmsgVXNlciB0byBkYXRhX3BvaW50LS0+PGcgY2xhc3M9ImxpbmsiIGRhdGEtZW50aXR5LTE9IlVzZXIiIGRhdGEtZW50aXR5LTI9ImRhdGFfcG9pbnQiIGRhdGEtc291cmNlLWxpbmU9IjIwIiBkYXRhLXVpZD0ibG5rMTUiIGlkPSJsaW5rX1VzZXJfZGF0YV9wb2ludCI+PHBhdGggZD0iTTM2LjY0LDM4Ni4xMTgzIEM1NC4yMiwzODguMDk4MyA4NS43NywzOTEuNjM4MyAxMTkuNDMsMzk1LjQyODMiIGZpbGw9Im5vbmUiIGlkPSJVc2VyLWRhdGFfcG9pbnQiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48L2c+PCEtLWxpbmsgVXNlciB0byBkYXRhX2F2Zy0tPjxnIGNsYXNzPSJsaW5rIiBkYXRhLWVudGl0eS0xPSJVc2VyIiBkYXRhLWVudGl0eS0yPSJkYXRhX2F2ZyIgZGF0YS1zb3VyY2UtbGluZT0iMjEiIGRhdGEtdWlkPSJsbmsxNiIgaWQ9ImxpbmtfVXNlcl9kYXRhX2F2ZyI+PHBhdGggZD0iTTM2LjgyLDM3Ni42NDgzIEM0Ni42NywzNzEuNTc4MyA2MC4wNiwzNjUuMDg4MyA3Mi4zNywzNjAuNDg4MyBDOTgsMzUwLjg5ODMgMTI2LjI5LDM0Mi4yMTgzIDE1Mi43MywzMzQuODg4MyIgZmlsbD0ibm9uZSIgaWQ9IlVzZXItZGF0YV9hdmciIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48L2c+PCEtLWxpbmsgVXNlciB0byBkYXRhX3RhYmxlLS0+PGcgY2xhc3M9ImxpbmsiIGRhdGEtZW50aXR5LTE9IlVzZXIiIGRhdGEtZW50aXR5LTI9ImRhdGFfdGFibGUiIGRhdGEtc291cmNlLWxpbmU9IjIyIiBkYXRhLXVpZD0ibG5rMTciIGlkPSJsaW5rX1VzZXJfZGF0YV90YWJsZSI+PHBhdGggZD0iTTI4LjM5LDM0NS44ODgzIEMzNC44MSwzMTguMzE4MyA0Ny41NSwyODIuMzc4MyA3Mi4zNywyNjAuNDg4MyBDODkuNDIsMjQ1LjQzODMgMTEwLjY4LDIzNS4wMzgzIDEzMi41NiwyMjcuODU4MyIgZmlsbD0ibm9uZSIgaWQ9IlVzZXItZGF0YV90YWJsZSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjwvZz48IS0tbGluayBVc2VyIHRvIGRhdGFfZ3JhcGgtLT48ZyBjbGFzcz0ibGluayIgZGF0YS1lbnRpdHktMT0iVXNlciIgZGF0YS1lbnRpdHktMj0iZGF0YV9ncmFwaCIgZGF0YS1zb3VyY2UtbGluZT0iMjMiIGRhdGEtdWlkPSJsbmsxOCIgaWQ9ImxpbmtfVXNlcl9kYXRhX2dyYXBoIj48cGF0aCBkPSJNMjYuMjQsMzQ1Ljk4ODMgQzMyLjg4LDI5MC4wNjgzIDQ3Ljg3LDE5MC4yNTgzIDcyLjM3LDE2NC40ODgzIEM4NS45NywxNTAuMTc4MyAxMDMuMjQsMTM5Ljc4ODMgMTIxLjcsMTMyLjI1ODMiIGZpbGw9Im5vbmUiIGlkPSJVc2VyLWRhdGFfZ3JhcGgiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiLz48L2c+PCEtLVNSQz1bVFA5QkppQ200OFJOLTFJWngyREFRVGJOVDhDNFdhTHYyNU1nZmthYWlLWVRDMXd0NGVaUlMxQ2tYanNxbzBkalNsd1Bfdms3QkxlZ1drSGtEMXYwMmUtTXFja3FQRTZQSDhaSklUQ2FnZzlTRzZmV05QRzJBeXNLWVF3REtmWDlwUDF1NW9VN3U5TXE5NGc1NlpINU80U2UtNUhkcGJCY01xMG9rRjBUcy1HQVhHbmlRV0VKWHZrdnFVa2NQajc0UDE5MDJzc3lzMTlBSUhtWlhYdm53dDl2VHJYZi1WYU1rcUZEcFB1NTlyMmVFdlpCbHFhMHJuMU1ROW52YV9EeDVkVzFOQkJCenR3Rm5xTEpRb0VuVi1Kekt5VFBRUkZJUTE2eDlIUTJad3RzR1hYZDJERlRZbHpHazJiWXFEWTNQaFlhZ2FCVVVOcktxNjZmMG16RXVXSU41U04wQW16eThneEd2SjJaVEtFQ3VsVzhnYzNDVy1HdlJDS0Y0NkR6aVlkTGJyQlhEOTJjX0hWZm9VNnd1TENTZ1VwOVNNTHFzZXVLSmpHSHNZS3hLWmxXQm0wMF0tLT48L2c+PC9zdmc+" width="400">
 <hr>
 <h2 id="use-case-beschreibungen">Use-Case-Beschreibungen</h2>
 <h3 id="01-wetterdaten-von-api-importieren">01 - Wetterdaten von API importieren</h3>
@@ -353,8 +463,139 @@ für den gewählten Zeitraum tabellarisch dar. Es werden Durchschnittswerte im g
 </ol>
 <h4 id="erweiterungen-3">Erweiterungen</h4>
 <p>6a. Für den gewählten Zeitpunkt sind keine Wetter- und/oder Luft-Daten vorhanden. Die Webseite zeigt dies mit einer Fehlermeldung an.</p>
+<h3 id="05-tabellarische-tagesdaten-zwischen-2-daten-abrufen">05 - Tabellarische Tagesdaten zwischen 2 Daten abrufen</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ziel</strong></td>
+<td>Der User sieht auf einer Webseite die Tagesdaten (Durchschnitt eines Tages Wetter- und Luftqualitätsdaten) über einen definierten Zeitraum tabellarisch dargestellt</td>
+</tr>
+<tr>
+<td><strong>Akteure</strong></td>
+<td>User</td>
+</tr>
+<tr>
+<td><strong>Auslöser</strong></td>
+<td>Der Benutzer ruft die Wetter-Daten-Seite auf</td>
+</tr>
+<tr>
+<td><strong>Nachbedingung</strong></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h4 id="essentielle-schritte-4">Essentielle Schritte</h4>
+<ol>
+<li>
+<p>Der Benutzer ruft die Daten-Abrufseite auf.</p>
+</li>
+<li>
+<p>Der Benutzer wählt den Ort (PLZ) aus einer vorgefertigten Liste aus</p>
+</li>
+<li>
+<p>Der Benutzer wählt ein Start-Datum</p>
+</li>
+<li>
+<p>Der Benutzer wählt ein End-Datum</p>
+</li>
+<li>
+<p>Der Benutzer klickt auf &quot;Daten laden&quot; (o.ä.)</p>
+</li>
+<li>
+<p>Die Webseite fragt die Daten vom Server ab und stellt die Daten
+für den gewählten Zeitraum tabellarisch dar. Es werden Durchschnittswerte pro Tag im gewählten Zeitraum von sowohl Wetter- wie auch Luftqualitätsdaten ausgegeben, und zwar folgende Werte:<br>
+<strong>Wetter</strong>:<br></p>
+<ul>
+<li>Zeitraum der Messungen</li>
+<li>Land</li>
+<li>PLZ, Ort</li>
+<li>Koordinaten</li>
+<li>Durchschnitts-Tages-Daten:
+<ul>
+<li>Temperatur-Schnitt, in °C <strong>und</strong> in °F</li>
+<li>gefühlte Temperatur, in °C <strong>und</strong> in °F</li>
+<li>Luftdruck, Luftfeuchtigkeit</li>
+</ul>
+</li>
+</ul>
+<p><strong>Luft:</strong><br></p>
+<ul>
+<li>Zeitstempel der Messung</li>
+<li>Land</li>
+<li>PLZ, Ort</li>
+<li>Durchschnitts-Tages-Daten:
+<ul>
+<li>Partikelzahlen (ug/m3) für:
+<ul>
+<li>CO</li>
+<li>NO</li>
+<li>NO2</li>
+<li>O3</li>
+<li>SO2</li>
+<li>PM2_5</li>
+<li>PM10</li>
+<li>NH3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="erweiterungen-4">Erweiterungen</h4>
+<p>6a. Für den gewählten Zeitpunkt sind keine Wetter- und/oder Luft-Daten vorhanden. Die Webseite zeigt dies mit einer Fehlermeldung an.</p>
+<h3 id="06-verlauf-temperatur-zwischen-2-daten-grafisch-darstellen">06 - Verlauf Temperatur zwischen 2 Daten grafisch darstellen</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ziel</strong></td>
+<td>Der User sieht auf einer Webseite den Temperaturverlauf als Grafik in einem bestimmten Zeitraum</td>
+</tr>
+<tr>
+<td><strong>Akteure</strong></td>
+<td>User</td>
+</tr>
+<tr>
+<td><strong>Auslöser</strong></td>
+<td>Der Benutzer ruft die Wetter-Diagramm-Seite auf</td>
+</tr>
+<tr>
+<td><strong>Nachbedingung</strong></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h4 id="essentielle-schritte-5">Essentielle Schritte</h4>
+<ol>
+<li>Der Benutzer ruft die Daten-Diagramm-Abrufseite auf.</li>
+<li>Der Benutzer wählt den Ort (PLZ) aus einer vorgefertigten Liste aus</li>
+<li>Der Benutzer wählt ein Start-Datum</li>
+<li>Der Benutzer wählt ein End-Datum</li>
+<li>Der Benutzer klickt auf &quot;Grafik anzeigen&quot; (o.ä.)</li>
+<li>Die Webseite fragt die Daten vom Server ab und stellt die Daten für den gewählten Zeitraum grafisch in einem Liniendiagramm grafisch dar.<br>
+Dabei zeigt:<br>
+<ul>
+<li>die X-Achse die Zeiteinteilung (z.B. tagesweise)</li>
+<li>die Y-Achse die Temperatur zu diesem Zeitpunkt</li>
+</ul>
+</li>
+</ol>
+<h4 id="erweiterungen-5">Erweiterungen</h4>
+<p>6a. Für den gewählten Zeitpunkt sind keine Wetter- und/oder Luft-Daten vorhanden. Die Webseite zeigt dies mit einer Fehlermeldung an.</p>
 
-        
-        
-    </body>
-    </html>
+            
+            
+        </body>
+        </html>

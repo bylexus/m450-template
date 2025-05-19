@@ -16,6 +16,12 @@ in Form von Use-Cases / Use-Case-Beschreibungen notiert.
 	- [04 - Durchschnittswerte zwischen 2 Daten abrufen](#04-durchschnittswerte-zwischen-2-daten-abrufen)
 		- [Essentielle Schritte](#essentielle-schritte-3)
 		- [Erweiterungen](#erweiterungen-3)
+	- [05 - Tabellarische Tagesdaten zwischen 2 Daten abrufen](#05-tabellarische-tagesdaten-zwischen-2-daten-abrufen)
+		- [Essentielle Schritte](#essentielle-schritte-4)
+		- [Erweiterungen](#erweiterungen-4)
+	- [06 - Verlauf Temperatur zwischen 2 Daten grafisch darstellen](#06-verlauf-temperatur-zwischen-2-daten-grafisch-darstellen)
+		- [Essentielle Schritte](#essentielle-schritte-5)
+		- [Erweiterungen](#erweiterungen-5)
 
 
 <img alt="Use-Cases" src="use-cases.svg" width="400">
@@ -162,12 +168,12 @@ in Form von Use-Cases / Use-Case-Beschreibungen notiert.
 
 ### 04 - Durchschnittswerte zwischen 2 Daten abrufen
 
-|                   |                                                                                                     |
-| ----------------- | --------------------------------------------------------------------------------------------------- |
+|                   |                                                                                                                    |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------ |
 | **Ziel**          | Der User sieht auf einer Webseite die Durchschnitts-Wetter- und Luftqualitätsdaten über einen definierten Zeitraum |
-| **Akteure**       | User                                                                                                |
-| **Auslöser**      | Der Benutzer ruft die Wetter-Durchschnitts-Seite auf                                                          |
-| **Nachbedingung** | -                                                                                                   |
+| **Akteure**       | User                                                                                                               |
+| **Auslöser**      | Der Benutzer ruft die Wetter-Durchschnitts-Seite auf                                                               |
+| **Nachbedingung** | -                                                                                                                  |
 
 
 #### Essentielle Schritte
@@ -202,6 +208,82 @@ in Form von Use-Cases / Use-Case-Beschreibungen notiert.
     	* PM2_5
     	* PM10
     	* NH3
+
+
+#### Erweiterungen
+
+6a. Für den gewählten Zeitpunkt sind keine Wetter- und/oder Luft-Daten vorhanden. Die Webseite zeigt dies mit einer Fehlermeldung an.
+
+### 05 - Tabellarische Tagesdaten zwischen 2 Daten abrufen
+
+|                   |                                                                                                                                                                     |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Ziel**          | Der User sieht auf einer Webseite die Tagesdaten (Durchschnitt eines Tages Wetter- und Luftqualitätsdaten) über einen definierten Zeitraum tabellarisch dargestellt |
+| **Akteure**       | User                                                                                                                                                                |
+| **Auslöser**      | Der Benutzer ruft die Wetter-Daten-Seite auf                                                                                                                        |
+| **Nachbedingung** | -                                                                                                                                                                   |
+
+
+#### Essentielle Schritte
+
+1. Der Benutzer ruft die Daten-Abrufseite auf.
+2. Der Benutzer wählt den Ort (PLZ) aus einer vorgefertigten Liste aus
+3. Der Benutzer wählt ein Start-Datum
+4. Der Benutzer wählt ein End-Datum
+5. Der Benutzer klickt auf "Daten laden" (o.ä.)
+6. Die Webseite fragt die Daten vom Server ab und stellt die Daten
+   für den gewählten Zeitraum tabellarisch dar. Es werden Durchschnittswerte pro Tag im gewählten Zeitraum von sowohl Wetter- wie auch Luftqualitätsdaten ausgegeben, und zwar folgende Werte:<br>
+   **Wetter**:<br>
+	* Zeitraum der Messungen
+	* Land
+	* PLZ, Ort
+	* Koordinaten
+	* Durchschnitts-Tages-Daten:
+		* Temperatur-Schnitt, in °C **und** in °F
+		* gefühlte Temperatur, in °C **und** in °F
+		* Luftdruck, Luftfeuchtigkeit
+
+   **Luft:**<br>
+	* Zeitstempel der Messung
+	* Land
+	* PLZ, Ort
+	* Durchschnitts-Tages-Daten:
+		* Partikelzahlen (ug/m3) für:
+			* CO
+			* NO
+			* NO2
+			* O3
+			* SO2
+			* PM2_5
+			* PM10
+			* NH3
+
+
+#### Erweiterungen
+
+6a. Für den gewählten Zeitpunkt sind keine Wetter- und/oder Luft-Daten vorhanden. Die Webseite zeigt dies mit einer Fehlermeldung an.
+
+### 06 - Verlauf Temperatur zwischen 2 Daten grafisch darstellen
+
+|                   |                                                                                                 |
+| ----------------- | ----------------------------------------------------------------------------------------------- |
+| **Ziel**          | Der User sieht auf einer Webseite den Temperaturverlauf als Grafik in einem bestimmten Zeitraum |
+| **Akteure**       | User                                                                                            |
+| **Auslöser**      | Der Benutzer ruft die Wetter-Diagramm-Seite auf                                                 |
+| **Nachbedingung** | -                                                                                               |
+
+
+#### Essentielle Schritte
+
+1. Der Benutzer ruft die Daten-Diagramm-Abrufseite auf.
+2. Der Benutzer wählt den Ort (PLZ) aus einer vorgefertigten Liste aus
+3. Der Benutzer wählt ein Start-Datum
+4. Der Benutzer wählt ein End-Datum
+5. Der Benutzer klickt auf "Grafik anzeigen" (o.ä.)
+6. Die Webseite fragt die Daten vom Server ab und stellt die Daten für den gewählten Zeitraum grafisch in einem Liniendiagramm grafisch dar.<br>
+   Dabei zeigt:<br>
+   - die X-Achse die Zeiteinteilung (z.B. tagesweise)
+   - die Y-Achse die Temperatur zu diesem Zeitpunkt
 
 
 #### Erweiterungen

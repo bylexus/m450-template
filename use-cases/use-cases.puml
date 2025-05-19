@@ -11,6 +11,7 @@ rectangle "Wetter-App" {
 	usecase "03 - Wetter am Zeitpunkt/Ort X abrufen" as data_point
 	usecase "04 - Durchschnittswerte zwischen\n2 Daten abrufen" as data_avg
 	usecase "05 - Tabellarische Tagesdaten\nzwischen 2 Daten abrufen" as data_table
+	usecase "06 - Verlauf Temperatur\nzwischen 2 Daten grafisch darstellen" as data_graph
 }
 
 Zeit -- import_weather
@@ -20,5 +21,6 @@ User -- import_air
 User -- data_point
 User -- data_avg
 User -- data_table
+User -- data_graph
 
 @enduml
