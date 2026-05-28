@@ -114,6 +114,7 @@ use Symfony\Component\Console\SingleCommandApplication;
             ]);
 
             $output->writeln("Wetter importiert für {$zip} {$city}, {$ts}");
+            return 0;
         } else {
             $output->writeln("ERROR: " . $response->getReasonPhrase());
             return Command::FAILURE;

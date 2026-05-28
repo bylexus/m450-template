@@ -1,5 +1,5 @@
 # This is the development version of the m450 example weather app
-FROM php:8.4-apache-bookworm
+FROM php:8.5-apache-trixie
 LABEL author="Alexander Schenkel <alexander.schenkel@bztf.ch>"
 
 EXPOSE 8020
@@ -10,8 +10,8 @@ RUN apt-get update && \
 	 	libsqlite3-dev \
 		sqlite3 \
 		unzip \
+		git \
 		locales
-RUN	docker-php-ext-install -j$(nproc) opcache
 RUN pecl install xdebug \
 	&& docker-php-ext-enable xdebug
 

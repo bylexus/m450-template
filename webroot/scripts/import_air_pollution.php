@@ -13,19 +13,19 @@ use Symfony\Component\Console\SingleCommandApplication;
 /**
  * Diese Kommandozeilen-App importiert aktuelle Lutfqualitätsdaten von
  * openweatherapi.org in die Datenbank.
- * 
+ *
  * Diese App ist ABSICHTLICH "grausam" programmiert:
- * 
+ *
  * - riesige, unübersichtliche Methode(n)
  * - kein Separation of Concern
  * - Config-Daten direkt im Code
- * - Spaghetti-Code 
+ * - Spaghetti-Code
  * - fast untestbar
- * 
- * 
+ *
+ *
  * Ziel ist, dass dieser Code im Verlauf des Moduls M450 auseinandergenommen und testbar
  * gemacht wird.
- * 
+ *
  * @package App\Controller
  */
 (new SingleCommandApplication())
@@ -121,6 +121,7 @@ use Symfony\Component\Console\SingleCommandApplication;
             ]);
 
             $output->writeln("Luftdaten importiert für {$zip} {$city}, {$ts}");
+            return 0;
         } else {
             $output->writeln("ERROR: " . $response->getReasonPhrase());
             return Command::FAILURE;
