@@ -6,10 +6,13 @@ services:
             - '${WEB_PORT:-8020}:80'
         volumes:
             - ./webroot:/var/www/html
-            - ./data:/data
+            - db-data:/data
         environment:
             - XDEBUG_MODE=trace,debug,coverage
             - SQLITE_DB_PATH=/data/weather.db
             - DB_NAME=${DB_NAME:-m450}
             - OPENWEATHER_KEY=${OPENWEATHER_KEY}
+
+volumes:
+    db-data: {}
 
